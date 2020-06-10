@@ -192,7 +192,22 @@ const MACHINE_TYPES = [
         width: 2,
         height: 1,
         sprite: function(node, direction) {
-            node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
+            //node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
+            switch (direction) {
+                case (DIRECTIONS.up):
+                    part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-up", -54, -82);
+                    break;
+                case (DIRECTIONS.down):                
+                part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
+                    break;
+                case (DIRECTIONS.left):
+                    part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-vertical", 54, -82);
+                    part.scale_x = -1;
+                    break;
+                case (DIRECTIONS.right):
+                    part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-vertical", -54, -82);
+                    break;                    
+            }
         },
     },   
     {
