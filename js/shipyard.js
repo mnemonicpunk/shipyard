@@ -94,7 +94,7 @@ class Shipyard {
         for (let i=0; i<raw.length; i++) {
             if (raw[i] == null) {
                 rle_counter++;
-                if (rle_counter == 7) {
+                if (rle_counter == 3) {
                     enc.push(-1);
                     enc.push(rle_counter);
 
@@ -122,7 +122,7 @@ class Shipyard {
 
         for (let i=0; i<buffer.byteLength; i++) {
             view[i] = enc[i*2]+1;
-            view[i] |= enc[(i*2)+1] << 5;
+            view[i] |= enc[(i*2)+1] << 6;
         }
         let base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)));
 
@@ -137,8 +137,8 @@ class Shipyard {
             bytes[i] = binary_string.charCodeAt(i);
         }
         for (let i=0; i<bytes.length; i++) {
-            let dev = (bytes[i] & 31) -1;
-            let param = bytes[i] >> 5;
+            let dev = (bytes[i] & 63) -1;
+            let param = bytes[i] >> 6;
 
             if (dev == -1) {
                 for (let i=0; i<param; i++) {
