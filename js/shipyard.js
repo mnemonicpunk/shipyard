@@ -19,7 +19,6 @@ class Shipyard {
 
         if (window.location.hash) {
             try {
-                console.dir(window.location.hash);
                 this.current_editor.map_data.fromData(this.fromEncodedData(window.location.hash.slice(1)));
             } catch(e) {
                 console.dir(e);
@@ -95,6 +94,12 @@ class Shipyard {
         for (let i=0; i<raw.length; i++) {
             if (raw[i] == null) {
                 rle_counter++;
+                if (rle_counter == 7) {
+                    enc.push(-1);
+                    enc.push(rle_counter);
+
+                    rle_counter = 0;
+                }
             } else {
                 if (rle_counter > 0) {
                     enc.push(-1);
@@ -111,30 +116,41 @@ class Shipyard {
             enc.push(rle_counter);
         }
 
-        return btoa(enc);
+        // encode tightly
+        let buffer = new ArrayBuffer(enc.length/2);
+        let view = new Uint8Array(buffer);
+
+        for (let i=0; i<buffer.byteLength; i++) {
+            view[i] = enc[i*2]+1;
+            view[i] |= enc[(i*2)+1] << 5;
+        }
+        let base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)));
+
+        return base64String;
     }
     fromEncodedData(enc) {
         let data = [];
-        let raw = atob(enc).split(',');
-        console.dir(raw);
-        console.log(typeof(raw));
+        
+        let binary_string = atob(enc);
+        let bytes = new Uint8Array(binary_string.length);
+        for (let i=0; i<binary_string.length; i++) {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        for (let i=0; i<bytes.length; i++) {
+            let dev = (bytes[i] & 31) -1;
+            let param = bytes[i] >> 5;
 
-        for (let i=0; i<raw.length; i+=2) {
-            let a = raw[i];
-            let b = raw[i+1];
-
-            if (a == -1) {
-                for (let j=0; j<b; j++) {
+            if (dev == -1) {
+                for (let i=0; i<param; i++) {
                     data.push(null);
                 }
             } else {
                 data.push({
-                    type_num: a,
-                    direction: b*90
+                    type_num: dev,
+                    direction: param * 90
                 });
             }
         }
-
         return data;
     }
 }
