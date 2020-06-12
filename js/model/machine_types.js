@@ -16,16 +16,16 @@ const MACHINE_TYPES = [
     
             switch (direction) {
                 case (DIRECTIONS.up):
-                    part = node.addPart("gameatlas3.png", "north-straight", -70, -75);
+                    part = node.addPart("gameatlas3.png", "north-straight", -65, -75);
                     break;
                 case (DIRECTIONS.down):                
-                    part = node.addPart("gameatlas4.png", "south-straight", -70, -75);
+                    part = node.addPart("gameatlas4.png", "south-straight", -75, -75);
                     break;
                 case (DIRECTIONS.left):
                     part = node.addPart("gameatlas4.png", "west-straight", -75, -48);
                     break;
                 case (DIRECTIONS.right):
-                    part = node.addPart("gameatlas3.png", "east-straight", -75, -48);
+                    part = node.addPart("gameatlas3.png", "east-straight", -75, -43);
                     break;                    
             }
     
@@ -43,10 +43,10 @@ const MACHINE_TYPES = [
     
             switch (direction) {
                 case (DIRECTIONS.up):
-                    part = node.addPart("gameatlas4.png", "north-CCW", -65, -80);
+                    part = node.addPart("gameatlas4.png", "north-CCW", -65, -90);
                     break;
                 case (DIRECTIONS.down):                
-                    part = node.addPart("gameatlas4.png", "south-CCW", 0, -75);
+                    part = node.addPart("gameatlas4.png", "south-CCW", -75, -35);
                     break;
                 case (DIRECTIONS.left):
                     part = node.addPart("gameatlas5.png", "west-CCW", -65, -38);
