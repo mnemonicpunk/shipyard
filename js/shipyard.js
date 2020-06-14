@@ -159,7 +159,7 @@ let shipyard = null;
 
 window.addEventListener('load', function() {
     var client = new XMLHttpRequest();
-    client.open('GET', './gameatlas.atlas');
+    client.open('GET', './img/gameatlas.atlas');
     client.onload = function() {
         let status = client.status;
         if (status === 0 || (status >= 200 && status < 400)) {
