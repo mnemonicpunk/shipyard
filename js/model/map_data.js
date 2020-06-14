@@ -66,7 +66,11 @@ class MapData {
                 data.push(null);
             }
         }
-        return data;
+        return {
+            width: this.width,
+            height: this.height,
+            data: data
+        }
     }
     fromData(data) {
         this.clear();
@@ -82,5 +86,6 @@ class MapData {
                 this.machines.push(m);
             }
         }        
+        console.dir(this);
     }
 }

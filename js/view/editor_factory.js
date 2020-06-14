@@ -46,4 +46,7 @@ class EditorFactory extends mnUI {
         this.map_view.resize(this.cam.x, this.cam.y, this.map_data.width*MAP_TILE_WIDTH, this.map_data.height*MAP_TILE_HEIGHT);
         this.machine_selector.resize(width-320, 0, 320, height);
     }
+    updateMap() {
+        this.map_view.setMap(this.map_data);
+    }
 }

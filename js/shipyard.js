@@ -19,7 +19,10 @@ class Shipyard {
 
         if (window.location.hash) {
             try {
-                this.current_editor.map_data.fromData(this.fromEncodedData(window.location.hash.slice(1)));
+                let data = this.fromEncodedData(window.location.hash.slice(1));
+                this.current_editor.map_data = new MapData(data.width, data.height);
+                this.current_editor.map_data.fromData(data.data);
+                this.current_editor.map_view.setMap(this.current_editor.map_data);
             } catch(e) {
                 console.dir(e);
                 window.location.hash = "";
@@ -87,7 +90,8 @@ class Shipyard {
         }
     }
     getEncodedData() {
-        let raw = this.current_editor.map_data.getData();
+        let d = this.current_editor.map_data.getData();
+        let raw = d.data;
         let enc = [];
         let rle_counter = 0;
 
@@ -117,12 +121,15 @@ class Shipyard {
         }
 
         // encode tightly
-        let buffer = new ArrayBuffer(enc.length/2);
+        let buffer = new ArrayBuffer(Math.floor(enc.length/2)+2);
         let view = new Uint8Array(buffer);
 
-        for (let i=0; i<buffer.byteLength; i++) {
-            view[i] = enc[i*2]+1;
-            view[i] |= enc[(i*2)+1] << 6;
+        view[0] = d.width;
+        view[1] = d.height;
+
+        for (let i=2; i<buffer.byteLength; i++) {
+            view[i] = enc[(i-2)*2]+1;
+            view[i] |= enc[((i-2)*2)+1] << 6;
         }
         let base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)));
 
@@ -136,7 +143,11 @@ class Shipyard {
         for (let i=0; i<binary_string.length; i++) {
             bytes[i] = binary_string.charCodeAt(i);
         }
-        for (let i=0; i<bytes.length; i++) {
+
+        let width = bytes[0];
+        let height = bytes[1];
+
+        for (let i=2; i<bytes.length; i++) {
             let dev = (bytes[i] & 63) -1;
             let param = bytes[i] >> 6;
 
@@ -151,7 +162,18 @@ class Shipyard {
                 });
             }
         }
-        return data;
+
+        console.dir({
+            width: width,
+            height: height,
+            data: data
+        });
+
+        return {
+            width: width,
+            height: height,
+            data: data
+        }
     }
 }
 
