@@ -6,11 +6,15 @@ class MachineSprite {
         this.node = new SpriteNode();
         this.node.clear();
 
-        let sprite = shipyard.findTypeByName(this.type).sprite;
+        let type_data = shipyard.findTypeByName(this.type);
+        let sprite = type_data.sprite;
         
         sprite(this.node, this.direction);
-        let arrow = this.node.addChild(new SpriteOrientation());
-        arrow.rotation = direction;
+
+        if (type_data.has_direction_arrows) {
+            let arrow = this.node.addChild(new SpriteOrientation());
+            arrow.rotation = direction;    
+        }
     }
     draw(ctx, x, y) {
         this.node.x = x;

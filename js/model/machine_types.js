@@ -11,6 +11,7 @@ const MACHINE_TYPES = [
         type: "belt_straight",
         width: 1,
         height: 1,
+        has_direction_arrows: false,
         sprite: function(node, direction) {
             let part = null;
             let part_arrow = null;
@@ -45,6 +46,7 @@ const MACHINE_TYPES = [
         type: "belt_curved",
         width: 1,
         height: 1,
+        has_direction_arrows: false,
         sprite: function(node, direction) {
             let part = null;
             let part_arrow = null;
@@ -80,6 +82,7 @@ const MACHINE_TYPES = [
         type: "belt_t",
         width: 1,
         height: 1,
+        has_direction_arrows: false,
         sprite: function(node, direction) {
             let part = null;
     
@@ -107,6 +110,7 @@ const MACHINE_TYPES = [
         type: "heater",
         width: 1,
         height: 1,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-melter", -64, -112);
         }
@@ -116,6 +120,7 @@ const MACHINE_TYPES = [
         type: "exporter",
         width: 1,
         height: 1,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-claimer-export", -64, -96);
         }
@@ -125,6 +130,7 @@ const MACHINE_TYPES = [
         type: "press",
         width: 1,
         height: 1,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-press-body", 0, -40);
             let n = node.addPart("gameatlas3.png", "device-press-body", 0, -40);
@@ -138,6 +144,7 @@ const MACHINE_TYPES = [
         type: "synthesizer",
         width: 1,
         height: 1,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-substance", -64, -96);
         }
@@ -147,6 +154,7 @@ const MACHINE_TYPES = [
         type: "cutter",
         width: 1,
         height: 1,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-saw-cutter-body", -60, -64);
         }
@@ -156,6 +164,7 @@ const MACHINE_TYPES = [
         type: "grabber",
         width: 1,
         height: 1,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas4.png", "device-grabber-base", -36, -36);
             a = node.addPart("gameatlas3.png", "device-grabber-arm-part-1", 0, -22);
@@ -185,7 +194,8 @@ const MACHINE_TYPES = [
         name: "Extruder",
         type: "extruder",
         width: 1,
-        height: 1,        
+        height: 1,   
+        has_direction_arrows: true,     
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-extruder-body", -60, -124);
             node.addPart("gameatlas3.png", "device-extruder-front-part", -22, -44);
@@ -196,7 +206,8 @@ const MACHINE_TYPES = [
         name: "Caster",
         type: "caster",
         width: 1,
-        height: 1,        
+        height: 1,  
+        has_direction_arrows: true,      
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-caster", -64, -96);
         }
@@ -206,6 +217,7 @@ const MACHINE_TYPES = [
         type: "splitter",
         width: 2,
         height: 1,
+        has_direction_arrows: false,
         sprite: function(node, direction) {
             //node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
             switch (direction) {
@@ -229,7 +241,8 @@ const MACHINE_TYPES = [
         name: "Obstacle",
         type: "obstacle",
         width: 1,
-        height: 1,        
+        height: 1,      
+        has_direction_arrows: true,  
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-obstacle-1", -64, -82);
         },
@@ -238,7 +251,8 @@ const MACHINE_TYPES = [
         name: "Recycler",
         type: "recycler",
         width: 3,
-        height: 3,        
+        height: 3,      
+        has_direction_arrows: true,  
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-recycler-body", -54, -62);
         },
@@ -247,7 +261,8 @@ const MACHINE_TYPES = [
         name: "Mixer",
         type: "mixer",
         width: 1,
-        height: 1,        
+        height: 1,   
+        has_direction_arrows: true,     
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-mixer", -64, -112);
         },
@@ -256,7 +271,8 @@ const MACHINE_TYPES = [
         name: "Importer",
         type: "importer",
         width: 1,
-        height: 1,        
+        height: 1,    
+        has_direction_arrows: true,    
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-claimer-import", -64, -96);
         }
