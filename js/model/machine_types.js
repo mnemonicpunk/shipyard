@@ -82,27 +82,10 @@ const MACHINE_TYPES = [
         type: "belt_t",
         width: 1,
         height: 1,
-        has_direction_arrows: false,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
-            let part = null;
-    
-            switch (direction) {
-                case (DIRECTIONS.up):
-                    part = node.addPart("gameatlas3.png", "north-straight", 0, -75);
-                    break;
-                case (DIRECTIONS.down):                
-                    part = node.addPart("gameatlas4.png", "south-straight", 0, -75);
-                    break;
-                case (DIRECTIONS.left):
-                    part = node.addPart("gameatlas4.png", "west-straight", -75, -48);
-                    break;
-                case (DIRECTIONS.right):
-                    part = node.addPart("gameatlas3.png", "east-straight", -75, -48);
-                    break;                    
-            }
-    
-            part.scale_x = 1.5;
-            part.scale_y = 1.5;
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Belt (T-Shape)";
         }
     },        
     {
@@ -238,6 +221,16 @@ const MACHINE_TYPES = [
         },
     },   
     {
+        name: "Mixer",
+        type: "mixer",
+        width: 1,
+        height: 1,   
+        has_direction_arrows: true,     
+        sprite: function(node, direction) {
+            node.addPart("gameatlas3.png", "device-mixer", -64, -112);
+        },
+    },    
+    {
         name: "Obstacle",
         type: "obstacle",
         width: 1,
@@ -256,17 +249,18 @@ const MACHINE_TYPES = [
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-recycler-body", -54, -62);
         },
-    },         
+    },  
     {
-        name: "Mixer",
-        type: "mixer",
+        name: "Substance Generator",
+        type: "substance_generator",
         width: 1,
-        height: 1,   
-        has_direction_arrows: true,     
+        height: 1,
+        has_direction_arrows: true,
         sprite: function(node, direction) {
-            node.addPart("gameatlas3.png", "device-mixer", -64, -112);
-        },
-    },           
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Substance Generator";
+        }                     
+    },
     {
         name: "Importer",
         type: "importer",
@@ -276,5 +270,247 @@ const MACHINE_TYPES = [
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-claimer-import", -64, -96);
         }
+    },  
+    {
+        name: "Underground Belt",
+        type: "underground_belt",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Underground Belt";
+        }                     
+    },  
+    {
+        name: "Long Grabber",
+        type: "long_grabber",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Long Grabber";
+        }                     
+    }, 
+    {
+        name: "Steel Wall",
+        type: "steel_wall",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Steel Wall";
+        }                     
+    },     
+    {
+        name: "Mechanical Assembler",
+        type: "mechanical_assembler",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Mechanical Assembler";
+        }                     
+    }, 
+    {
+        name: "Applier",
+        type: "applier",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Applier";
+        }                     
+    },
+    {
+        name: "Extractor",
+        type: "extractor",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Extractor";
+        }                     
+    },    
+    {
+        name: "Blower",
+        type: "blower",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Blower";
+        }                     
+    },    
+    {
+        name: "Pipe",
+        type: "pipe",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Pipe";
+        }                     
+    },
+    {
+        name: "Underground Pipe",
+        type: "underground_pipe",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Underground Pipe";
+        }                     
+    },
+    {
+        name: "Chemical Mixer",
+        type: "chemical_mixer",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Chemical Mixer";
+        }                     
+    },    
+    {
+        name: "Open Pipe",
+        type: "open_pipe",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Open Pipe";
+        }                     
+    },
+    {
+        name: "Electronics Assembler",
+        type: "electronics_assembler",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Electronics Assembler";
+        }                     
+    },  
+    {
+        name: "Smart Grabber",
+        type: "smart_grabber",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Smart Grabber";
+        }                     
     },      
+    {
+        name: "Smart Splitter",
+        type: "smart_splitter",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Smart Splitter";
+        }                     
+    },  
+    {
+        name: "Crusher",
+        type: "crusher",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Crusher";
+        }                     
+    },
+    {
+        name: "Incinerator",
+        type: "incinerator",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Incinerator";
+        }                     
+    },
+    {
+        name: "Fast Grabber",
+        type: "fast_grabber",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Fast Grabber";
+        }                     
+    },    
+    {
+        name: "Fast Long Grabber",
+        type: "fast_long_grabber",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Fast Long Grabber";
+        }                     
+    },    
+    {
+        name: "Fast Belt",
+        type: "fast_belt",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Fast Belt";
+        }                     
+    },    
+    {
+        name: "Fast Splitter",
+        type: "fast_splitter",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Fast Splitter";
+        }                     
+    },    
+    {
+        name: "Heat Gun",
+        type: "heat_gun",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "Heat Gun";
+        }                     
+    },    
+    {
+        name: "Ice Gun",
+        type: "ice_gun",
+        width: 1,
+        height: 1,
+        has_direction_arrows: true,
+        sprite: function(node, direction) {
+            let p = node.addChild(new SpritePlaceholder());
+            p.label = "ice_gun";
+        }                     
+    },    
 ]
