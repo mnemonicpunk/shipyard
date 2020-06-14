@@ -13,24 +13,31 @@ const MACHINE_TYPES = [
         height: 1,
         sprite: function(node, direction) {
             let part = null;
+            let part_arrow = null;
     
             switch (direction) {
                 case (DIRECTIONS.up):
                     part = node.addPart("gameatlas4.png", "south-straight", -75, -75);
+                    part_arrow = node.addPart("gameatlas4.png", "south-straight-arrow", -75, -85);
                     break;
                 case (DIRECTIONS.down):                
                     part = node.addPart("gameatlas3.png", "north-straight", -65, -75);
+                    part_arrow = node.addPart("gameatlas4.png", "north-straight-arrow", -65, -65);
                     break;
                 case (DIRECTIONS.left):
                     part = node.addPart("gameatlas4.png", "west-straight", -75, -48);
+                    part_arrow = node.addPart("gameatlas4.png", "west-straight-arrow", -75, -75);
                     break;
                 case (DIRECTIONS.right):
                     part = node.addPart("gameatlas3.png", "east-straight", -75, -43);
+                    part_arrow = node.addPart("gameatlas4.png", "east-straight-arrow", -75, -70);
                     break;                    
             }
     
             part.scale_x = 1.5;
             part.scale_y = 1.5;
+            part_arrow.scale_x = 1.5;
+            part_arrow.scale_y = 1.5;            
         }
     },
     {
@@ -40,25 +47,32 @@ const MACHINE_TYPES = [
         height: 1,
         sprite: function(node, direction) {
             let part = null;
+            let part_arrow = null;
     
             switch (direction) {
                 case (DIRECTIONS.up):
                     part = node.addPart("gameatlas4.png", "south-CCW", -75, -35);
+                    part_arrow = node.addPart("gameatlas4.png", "south-CCW-arrow", -75, -75);
                     break;
                 case (DIRECTIONS.down):                
                     part = node.addPart("gameatlas3.png", "north-CCW", -65, -90);
+                    part_arrow = node.addPart("gameatlas4.png", "north-CCW-arrow", -65, -70);
                     break;
                 case (DIRECTIONS.left):
                     part = node.addPart("gameatlas5.png", "west-CCW", -65, -38);
+                    part_arrow = node.addPart("gameatlas4.png", "west-CCW-arrow", -65, -75);
                     break;                    
                 case (DIRECTIONS.right):
                     part = node.addPart("gameatlas4.png", "east-CCW", -75, -88);
+                    part_arrow = node.addPart("gameatlas3.png", "east-CCW-arrow", -75, -68);
                     break;                                        
 
             }
     
             part.scale_x = 1.5;
             part.scale_y = 1.5;
+            part_arrow.scale_x = 1.5;
+            part_arrow.scale_y = 1.5;            
         }
     },
     {
