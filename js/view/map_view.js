@@ -54,7 +54,13 @@ class MapView extends mnWidget {
 
         for (let i=0; i<this.map_data.machines.length; i++) {
             let m = this.map_data.machines[i];
-            let sprite = new MachineSprite(m.type, m.direction);
+            let context = {
+                north: this.map_data.findMachineAt(m.x, m.y-1),
+                south: this.map_data.findMachineAt(m.x, m.y+1),
+                west: this.map_data.findMachineAt(m.x-1, m.y),
+                east: this.map_data.findMachineAt(m.x+1, m.y)
+            }
+            let sprite = new MachineSprite(m.type, m.direction, context);
             sprite.draw(ctx, (m.x+0.5) * MAP_TILE_WIDTH, (m.y+0.5) * MAP_TILE_HEIGHT);
         }
 

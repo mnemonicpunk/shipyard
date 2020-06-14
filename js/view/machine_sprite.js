@@ -1,5 +1,5 @@
 class MachineSprite {
-    constructor(type, direction) {
+    constructor(type, direction, context) {
         this.type = type;
         this.direction = direction;
 
@@ -9,7 +9,7 @@ class MachineSprite {
         let type_data = shipyard.findTypeByName(this.type);
         let sprite = type_data.sprite;
         
-        sprite(this.node, this.direction);
+        sprite(this.node, this.direction, context);
 
         if (type_data.has_direction_arrows) {
             let arrow = this.node.addChild(new SpriteOrientation());
