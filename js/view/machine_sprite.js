@@ -9,6 +9,8 @@ class MachineSprite {
         let sprite = shipyard.findTypeByName(this.type).sprite;
         
         sprite(this.node, this.direction);
+        let arrow = this.node.addChild(new SpriteOrientation());
+        arrow.rotation = direction;
     }
     draw(ctx, x, y) {
         this.node.x = x;

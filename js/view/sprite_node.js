@@ -21,6 +21,7 @@ class SpriteNode {
     }
     addChild(child) {
         this.children.push(child);
+        return child;
     }
     setImage(sheet, x, y, w, h, x_off, y_off) {
         this.image_data.sheet = sheet;
