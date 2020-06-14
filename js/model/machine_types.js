@@ -16,10 +16,10 @@ const MACHINE_TYPES = [
     
             switch (direction) {
                 case (DIRECTIONS.up):
-                    part = node.addPart("gameatlas3.png", "north-straight", -65, -75);
+                    part = node.addPart("gameatlas4.png", "south-straight", -75, -75);
                     break;
                 case (DIRECTIONS.down):                
-                    part = node.addPart("gameatlas4.png", "south-straight", -75, -75);
+                    part = node.addPart("gameatlas3.png", "north-straight", -65, -75);
                     break;
                 case (DIRECTIONS.left):
                     part = node.addPart("gameatlas4.png", "west-straight", -75, -48);
@@ -43,17 +43,18 @@ const MACHINE_TYPES = [
     
             switch (direction) {
                 case (DIRECTIONS.up):
-                    part = node.addPart("gameatlas4.png", "north-CCW", -65, -90);
+                    part = node.addPart("gameatlas4.png", "south-CCW", -75, -35);
                     break;
                 case (DIRECTIONS.down):                
-                    part = node.addPart("gameatlas4.png", "south-CCW", -75, -35);
+                    part = node.addPart("gameatlas3.png", "north-CCW", -65, -90);
                     break;
                 case (DIRECTIONS.left):
                     part = node.addPart("gameatlas5.png", "west-CCW", -65, -38);
-                    break;
+                    break;                    
                 case (DIRECTIONS.right):
                     part = node.addPart("gameatlas4.png", "east-CCW", -75, -88);
-                    break;                    
+                    break;                                        
+
             }
     
             part.scale_x = 1.5;
@@ -154,12 +155,12 @@ const MACHINE_TYPES = [
 
             let arm = a;
 
-            a = arm.addPart("gameatlas4.png", "device-grabber-finger", 85, 35);
+            a = arm.addPart("gameatlas5.png", "device-grabber-finger", 85, 35);
             a.image_data.x_off = 0;
             a.image_data.y_off = 0;
             a.rotation = 180;
 
-            a = arm.addPart("gameatlas4.png", "device-grabber-finger", 85, -15);
+            a = arm.addPart("gameatlas5.png", "device-grabber-finger", 85, -15);
             a.image_data.x_off = 0;
             a.image_data.y_off = 0;
             a.scale_y = -1;
@@ -195,10 +196,10 @@ const MACHINE_TYPES = [
             //node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
             switch (direction) {
                 case (DIRECTIONS.up):
-                    part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-up", -54, -82);
+                    part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
                     break;
                 case (DIRECTIONS.down):                
-                part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
+                    part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-up", -54, -82);
                     break;
                 case (DIRECTIONS.left):
                     part = node.addPart("gameatlas3.png", "device-splitter-body-horizontal-vertical", 54, -82);
