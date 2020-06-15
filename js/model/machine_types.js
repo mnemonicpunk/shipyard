@@ -9,7 +9,7 @@ const DIRECTIONS = {
 function select_belt_sprite(direction, context) {
     let cc = function(dir, facing) {
         if (context[dir] == null) { return false; }
-        if (context[dir].direction == facing) { 
+        if (context[dir].isFacingBelt(facing)) { 
             return true;
         }
         return false;
@@ -61,6 +61,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: false,
+        interacts_with_belt: true,
         sprite: function(node, direction, context) {
             let belt = "straight";
             if (context != undefined) {
@@ -175,6 +176,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-melter", -64, -112);
         }
@@ -185,6 +187,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-claimer-export", -64, -96);
         }
@@ -195,6 +198,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-press-body", 0, -40);
             let n = node.addPart("gameatlas3.png", "device-press-body", 0, -40);
@@ -209,6 +213,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-substance", -64, -96);
         }
@@ -219,6 +224,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-saw-cutter-body", -60, -64);
         }
@@ -229,6 +235,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: false,
         sprite: function(node, direction) {
             node.addPart("gameatlas4.png", "device-grabber-base", -36, -36);
             a = node.addPart("gameatlas3.png", "device-grabber-arm-part-1", 0, -22);
@@ -259,7 +266,8 @@ const MACHINE_TYPES = [
         type: "extruder",
         width: 1,
         height: 1,   
-        has_direction_arrows: true,     
+        has_direction_arrows: true,
+        interacts_with_belt: true,     
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-extruder-body", -60, -124);
             node.addPart("gameatlas3.png", "device-extruder-front-part", -22, -44);
@@ -271,7 +279,8 @@ const MACHINE_TYPES = [
         type: "caster",
         width: 1,
         height: 1,  
-        has_direction_arrows: true,      
+        has_direction_arrows: true, 
+        interacts_with_belt: true,     
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-caster", -64, -96);
         }
@@ -282,6 +291,7 @@ const MACHINE_TYPES = [
         width: 2,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             switch (direction) {
                 case (DIRECTIONS.up):
@@ -305,7 +315,8 @@ const MACHINE_TYPES = [
         type: "mixer",
         width: 1,
         height: 1,   
-        has_direction_arrows: true,     
+        has_direction_arrows: true, 
+        interacts_with_belt: true,    
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-mixer", -64, -112);
         },
@@ -316,6 +327,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,      
         has_direction_arrows: true,  
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-obstacle-1", -64, -82);
         },
@@ -325,7 +337,8 @@ const MACHINE_TYPES = [
         type: "recycler",
         width: 3,
         height: 3,      
-        has_direction_arrows: true,  
+        has_direction_arrows: true, 
+        interacts_with_belt: true, 
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-recycler-body", -54, -62);
         },
@@ -336,6 +349,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Substance Generator";
@@ -346,7 +360,8 @@ const MACHINE_TYPES = [
         type: "importer",
         width: 1,
         height: 1,    
-        has_direction_arrows: true,    
+        has_direction_arrows: true,   
+        interacts_with_belt: true, 
         sprite: function(node, direction) {
             node.addPart("gameatlas3.png", "device-claimer-import", -64, -96);
         }
@@ -357,6 +372,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Underground Belt";
@@ -368,6 +384,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: false,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Long Grabber";
@@ -379,6 +396,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Steel Wall";
@@ -390,6 +408,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Mechanical Assembler";
@@ -401,6 +420,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Applier";
@@ -412,6 +432,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Extractor";
@@ -423,6 +444,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Blower";
@@ -434,6 +456,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Pipe";
@@ -445,6 +468,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Underground Pipe";
@@ -456,6 +480,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Chemical Mixer";
@@ -467,6 +492,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Open Pipe";
@@ -478,6 +504,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Electronics Assembler";
@@ -489,6 +516,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: false,
         sprite: function(node, direction) {
             node.addPart("gameatlas4.png", "device-grabber-smart-base", -36, -36);
             a = node.addPart("gameatlas4.png", "device-grabber-smart-arm-part-1", 0, -22);
@@ -520,6 +548,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: false,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             //node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
             switch (direction) {
@@ -545,6 +574,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Crusher";
@@ -556,6 +586,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Incinerator";
@@ -567,6 +598,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: false,
         sprite: function(node, direction) {
             node.addPart("gameatlas4.png", "device-grabber-fast-base", -36, -36);
             a = node.addPart("gameatlas4.png", "device-grabber-fast-arm-part-1", 0, -22);
@@ -598,6 +630,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: false,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Fast Long Grabber";
@@ -609,6 +642,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: false,
+        interacts_with_belt: true,
         sprite: function(node, direction, context) {
             let belt = "straight";
             if (context != undefined) {
@@ -723,6 +757,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: false,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             //node.addPart("gameatlas3.png", "device-splitter-body-horizontal-down", -54, -82);
             switch (direction) {
@@ -748,6 +783,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "Heat Gun";
@@ -759,6 +795,7 @@ const MACHINE_TYPES = [
         width: 1,
         height: 1,
         has_direction_arrows: true,
+        interacts_with_belt: true,
         sprite: function(node, direction) {
             let p = node.addChild(new SpritePlaceholder());
             p.label = "ice_gun";

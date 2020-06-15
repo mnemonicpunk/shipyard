@@ -12,4 +12,14 @@ class Machine {
         this.direction += 90;
         this.direction %= 360;
     }
+    isFacingBelt(dir) {
+        let type = shipyard.findTypeByName(this.type);
+        if (type.interacts_with_belt == false) { 
+            return false;
+        }
+        if (this.direction == dir) {
+            return true;
+        }
+        return false;
+    }
 }

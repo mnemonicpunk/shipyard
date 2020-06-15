@@ -35,8 +35,8 @@ class Shipyard {
         }
 
         this.current_editor.map_view.on('map_changed', function(event) {
-            //console.dir();
-            window.location.hash = _Instance.current_editor.map_data.getEncodedData();
+            console.log("map changed");
+            window.location.hash = _Instance.current_editor.map_view.map_data.getEncodedData();
         });
 
         let _draw = function() {

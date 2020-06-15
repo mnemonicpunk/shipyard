@@ -24,20 +24,17 @@ class EditorFactory extends mnUI {
         this.on('key', function(data) {
             let speed = 16;
             if (data.name == "left") {
-                _Instance.cam.x += speed;
+                _Instance.scroll(-speed, 0);
             }
             if (data.name == "right") {
-                _Instance.cam.x -= speed;
+                _Instance.scroll(+speed, 0);
             }
             if (data.name == "up") {
-                _Instance.cam.y += speed;
+                _Instance.scroll(0, -speed);
             }
             if (data.name == "down") {
-                _Instance.cam.y -= speed;
+                _Instance.scroll(0, +speed);
             }
-
-            _Instance.map_view.x = _Instance.cam.x;
-            _Instance.map_view.y = _Instance.cam.y;
         });
         this.machine_selector.on('selected', function(event) {
             _Instance.map_view.selected_type = event.type;
@@ -54,5 +51,12 @@ class EditorFactory extends mnUI {
     }
     draw(ctx) {
         super.draw(ctx);        
+    }
+    scroll(x, y) {
+        this.cam.x -= x;
+        this.cam.y -= y;
+
+        this.map_view.x = this.cam.x;
+        this.map_view.y = this.cam.y;
     }
 }
