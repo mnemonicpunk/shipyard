@@ -5,6 +5,7 @@ class EditorFactory extends mnUI {
         // ui elements
         this.map_view = new MapView();
         this.machine_selector = new MachineSelector();
+        this.splashscreen = new SplashScreen();
 
         // data elements
         this.map_data = new MapData(12, 12);
@@ -17,6 +18,7 @@ class EditorFactory extends mnUI {
         
         this.children.push(this.map_view);
         this.children.push(this.machine_selector);
+        this.children.push(this.splashscreen);
 
         let _Instance = this;
         this.on('key', function(data) {
@@ -45,8 +47,12 @@ class EditorFactory extends mnUI {
         super.resize(x, y, width, height);
         this.map_view.resize(this.cam.x, this.cam.y, this.map_data.width*MAP_TILE_WIDTH, this.map_data.height*MAP_TILE_HEIGHT);
         this.machine_selector.resize(width-320, 0, 320, height);
+        this.splashscreen.resize(0, 0, width, height);
     }
     updateMap() {
         this.map_view.setMap(this.map_data);
+    }
+    draw(ctx) {
+        super.draw(ctx);        
     }
 }

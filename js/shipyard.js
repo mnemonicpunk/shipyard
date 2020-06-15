@@ -13,16 +13,21 @@ class Shipyard {
         this.ctx = this.canvas.getContext('2d');
         this.atlas = new TextureAtlas(texture_atlas_data);
 
+        this.loadImageFiles();
+
         this.width = 0;
         this.height = 0;
         this.current_editor = new EditorFactory(0,0,this.width,this.height);
 
         if (window.location.hash) {
             try {
-                let data = this.fromEncodedData(window.location.hash.slice(1));
-                this.current_editor.map_data = new MapData(data.width, data.height);
-                this.current_editor.map_data.fromData(data.data);
-                this.current_editor.map_view.setMap(this.current_editor.map_data);
+                let map_data = this.current_editor.map_data;
+                let map_view = this.current_editor.map_view;
+
+                let data = map_data.fromEncodedData(window.location.hash.slice(1));
+                map_data = new MapData(data.width, data.height);
+                map_data.fromData(data.data);
+                map_view.setMap(map_data);
             } catch(e) {
                 console.dir(e);
                 window.location.hash = "";
@@ -31,7 +36,7 @@ class Shipyard {
 
         this.current_editor.map_view.on('map_changed', function(event) {
             //console.dir();
-            window.location.hash = _Instance.getEncodedData();
+            window.location.hash = _Instance.current_editor.map_data.getEncodedData();
         });
 
         let _draw = function() {
@@ -89,90 +94,38 @@ class Shipyard {
             }
         }
     }
-    getEncodedData() {
-        let d = this.current_editor.map_data.getData();
-        let raw = d.data;
-        let enc = [];
-        let rle_counter = 0;
+    loadImageFiles() {
+        let files = this.atlas.filenames;
+        let imgs = [];
 
-        for (let i=0; i<raw.length; i++) {
-            if (raw[i] == null) {
-                rle_counter++;
-                if (rle_counter == 3) {
-                    enc.push(-1);
-                    enc.push(rle_counter);
+        let loaded = 0;
+        let load_total = files.length;
 
-                    rle_counter = 0;
+        let _Instance = this;
+        for (let i=0; i<files.length; i++) {
+            let img = document.createElement('img');
+            img.src = "img/" + files[i];
+            img.style = "display: none;";
+            img.id = files[i].slice(0, files[i].length - 4);
+
+            img.addEventListener('load', function() {
+                loaded++;
+                let percent = (loaded/load_total) * 100;
+                //console.log("Percentage loaded: " + percent + "%");
+                _Instance.current_editor.splashscreen.loading = percent;
+
+                if (loaded == load_total) {
+                    _Instance.current_editor.map_view.dirtyMap();
+                    _Instance.current_editor.splashscreen.active = false;
                 }
-            } else {
-                if (rle_counter > 0) {
-                    enc.push(-1);
-                    enc.push(rle_counter);
+            });
 
-                    rle_counter = 0;
-                }
-                enc.push(raw[i].type_num);
-                enc.push(Math.floor(raw[i].direction/90));
-            }
-        }
-        if (rle_counter > 0) {
-            enc.push(-1);
-            enc.push(rle_counter);
+            imgs.push(img);
         }
 
-        // encode tightly
-        let buffer = new ArrayBuffer(Math.floor(enc.length/2)+2);
-        let view = new Uint8Array(buffer);
-
-        view[0] = d.width;
-        view[1] = d.height;
-
-        for (let i=2; i<buffer.byteLength; i++) {
-            view[i] = enc[(i-2)*2]+1;
-            view[i] |= enc[((i-2)*2)+1] << 6;
-        }
-        let base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)));
-
-        return base64String;
-    }
-    fromEncodedData(enc) {
-        let data = [];
-        
-        let binary_string = atob(enc);
-        let bytes = new Uint8Array(binary_string.length);
-        for (let i=0; i<binary_string.length; i++) {
-            bytes[i] = binary_string.charCodeAt(i);
-        }
-
-        let width = bytes[0];
-        let height = bytes[1];
-
-        for (let i=2; i<bytes.length; i++) {
-            let dev = (bytes[i] & 63) -1;
-            let param = bytes[i] >> 6;
-
-            if (dev == -1) {
-                for (let i=0; i<param; i++) {
-                    data.push(null);
-                }
-            } else {
-                data.push({
-                    type_num: dev,
-                    direction: param * 90
-                });
-            }
-        }
-
-        console.dir({
-            width: width,
-            height: height,
-            data: data
-        });
-
-        return {
-            width: width,
-            height: height,
-            data: data
+        let b = document.body;
+        for (let i=0; i<imgs.length; i++) {
+            b.appendChild(imgs[i]);
         }
     }
 }

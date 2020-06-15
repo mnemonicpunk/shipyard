@@ -1,6 +1,8 @@
 class TextureAtlas {
     constructor(raw_data) {
-        this.data = this.parse(raw_data);
+        let d = this.parse(raw_data);
+        this.data = d.data;
+        this.filenames = d.files;
     }
     parse(data) {
         // got the data, now let's make it usable
@@ -8,6 +10,7 @@ class TextureAtlas {
     
         let atlas_raw = [];
         let current_atlas = [];
+        let filenames = [];
     
         for (let i=0; i<lines.length; i++) {
             let nl = lines[i];
@@ -86,9 +89,13 @@ class TextureAtlas {
     
         for (let i=0; i<atlas_raw.length; i++) {
             parsed_atlas.push(parseAtlas(atlas_raw[i]));
+            filenames.push(parsed_atlas[i].file);
         }
-    
-        return parsed_atlas;
+
+        return {
+            data: parsed_atlas,
+            files: filenames
+        };
     
     }
     getTexture(atlas_name, texture_name) {
