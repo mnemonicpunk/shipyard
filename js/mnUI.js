@@ -75,6 +75,19 @@ class mnWidget {
         }
         return consumed;
     }
+    _onMouseUp(x, y, button) {
+        if (!this.active) { return false; }
+
+        let consumed = this.withChildrenInverted(function(parent, self) {
+            return self._onMouseUp(x - parent.x, y - parent.y, button);
+        });             
+        if (!consumed) {
+            if (this.isUnderMouse(x, y)) {
+                consumed |= this.onMouseUp(x, y, button);
+            }    
+        }
+        return consumed;
+    }    
     mouseMove(x, y) {
 
     }
@@ -84,6 +97,9 @@ class mnWidget {
     onClick(button) {
 
     }
+    onMouseUp(button) {
+
+    }    
     resize(x, y, width, height) {
         this.x = x;
         this.y = y;

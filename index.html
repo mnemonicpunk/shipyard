@@ -9,6 +9,7 @@
         <script src="js/view/editor_factory.js"></script>
         <script src="js/view/map_view.js"></script>
         <script src="js/view/machine_selector.js"></script>
+        <script src="js/view/control_button.js"></script>
         <script src="js/view/splashscreen.js"></script>        
         <script src="js/view/sprite_node.js"></script>
         <script src="js/view/sprite_orientation.js"></script>
@@ -16,9 +17,13 @@
         <script src="js/shipyard.js"></script>
         
         <style>
+            html, body {
+            overflow-x: hidden;
+            }
             body {
                 padding: 0;
                 margin: 0;
+                position: relative;
             }
 
             #app_canvas {
@@ -26,10 +31,14 @@
                 height: 100%;
                 background: #000;
                 color: #fff;
+
+                -webkit-user-select: none; /* Safari */
+                -ms-user-select: none; /* IE 10+ and Edge */
+                user-select: none; /* Standard syntax */                
             }
         </style>
     </head>
     <body>
-        <canvas id="app_canvas"></canvas>
+        <canvas draggable=false id="app_canvas"></canvas>
     </body>
 </html>

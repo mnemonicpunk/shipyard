@@ -8,6 +8,8 @@ class MapView extends mnWidget {
         this.map_canvas = document.createElement('canvas');
         this.map_dirty = false;
 
+        this.ui_mode = "edit";
+
         this.hovered_tile = {
             x: 0,
             y: 0
@@ -70,7 +72,7 @@ class MapView extends mnWidget {
         let s = {
             x: Math.floor((x - this.x) / MAP_TILE_WIDTH),
             y: Math.floor((y - this.y) / MAP_TILE_HEIGHT)
-        }
+        };
 
         if (s.x < 0) { s.x = 0; }
         if (s.y < 0) { s.y = 0; }
@@ -82,15 +84,31 @@ class MapView extends mnWidget {
     onClick(x, y, button) {
         let m = this.map_data.findMachineAt(this.hovered_tile.x, this.hovered_tile.y);
         if (button == 0) {
-            if (m == null) {
-                // place the selected type of machine here
-                let m = new Machine(this.selected_type);
-                m.x = this.hovered_tile.x;
-                m.y = this.hovered_tile.y;
-                this.map_data.addMachine(m);
-            } else {
-                m.rotateClockwise();
+            this.drag_origin = this.mouse;
+
+            if (this.ui_mode == "edit") {
+                if (m != null) {
+                    m.rotateClockwise();
+                }
             }
+
+            if (this.ui_mode == "place") {
+                if (m == null) {
+                    // place the selected type of machine here
+                    let m = new Machine(this.selected_type);
+                    m.x = this.hovered_tile.x;
+                    m.y = this.hovered_tile.y;
+                    this.map_data.addMachine(m);
+                }
+            }
+
+            if (this.ui_mode == "delete") {
+                if (m != null) {
+                    this.map_data.removeMachine(m);
+                    this.dirtyMap();
+                }
+            }
+
             this.dirtyMap();
         }
         if (button == 2) {
@@ -99,5 +117,8 @@ class MapView extends mnWidget {
                 this.dirtyMap();
             }
         }
+    }
+    setUIMode(mode) {
+        this.ui_mode = mode;
     }
 }
